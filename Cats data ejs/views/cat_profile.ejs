@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Cat Profile <%= cat['name'] %></title>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Profile Page for <%= cat[0].name %> </h1>
+        <div class="infobox">
+            <ul>
+                <img src="images/<%= cat[0].url %>.jpg"></li>
+                <li>
+                    <h3>Age: <%= cat[0].age %></h3>
+                </li>
+                <li>
+                    <h3>favorite food: <%= cat[0].favorite_food %></h3>
+                </li>
+                <li>
+                    <h3>Sleeping Spots</h3>
+                    <p><%= cat[0].sleep_spot1 %></p>
+                    <p><%= cat[0].sleep_spot2 %></p>
+                </li>
+
+
+            </ul>
+        </div>
+    </div>
+</body>
+
+</html>>
