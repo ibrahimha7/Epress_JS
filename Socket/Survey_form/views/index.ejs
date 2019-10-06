@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Survey Form</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var socket = io.connect();
+            $('#survey').submit(function (e) {
+                e.preventDefault();
+                socket.emit("posting_form", {
+                    name: $("#name").val(),
+                    location: $("#location").val(),
+                    language: $("#language").val(),
+                    comment: $("#comment").val()
+                });
+            });
+            socket.on('updated_message', function (data) {
+                var object = JSON.stringify(data.info);
+                $('#message').html("You emitted the following information to the server: " + JSON.stringify(data.response));
+            });
+            socket.on('random_number', function (data) {
+                $('#number').html("Your lucky number emitted by the server is : " + JSON.stringify(data.response));
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div id="message"></div>
+    <div id="number"></div>
+    <div style="margin-top: 50px;margin-left: 30%;margin-right: 30%;
+    padding: 40px;border: 1px solid black">
+         <form action="" id="survey" style="border: 1px sloid black">
+            <label for="name">Your Name:</label>
+            <input type="text" name="name" id="name">
+            <br>
+            <label for="location">Dojo Location:</label>
+            <select name="location" id="location">
+                <option value="jeddah">jeddah</option>
+                <option value="makkah">makkah</option>
+            </select>
+            <br>
+            <label for="language">Favorite Language:</label>
+            <select name="language" id="language">
+                <option value="JavaScript">JavaScript</option>
+                <option value="Python">Python</option>
+                <option value="C#">C#</option>
+                <option value="Swift">Swift</option>
+            </select>
+            <br>
+            <label for="comment">Comment (Optional):</label>
+            <br>
+            <textarea name="comment" id="comment"></textarea>
+            <br>
+            <hr>
+            <button class="submit">Submit</button>
+        </form>
+    </div>
+
+</body>
+
+</html>
