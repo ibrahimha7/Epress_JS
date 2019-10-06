@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Epic Button Game</title>
+    <script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function (){
+            var socket = io.connect();
+            $('#btn').click(function (){
+                socket.emit("button_click")
+            });
+               $('#reset').click(function (){
+                socket.emit("reset")
+            });
+            socket.on('update_count', function(data){
+                $("#count").html(data.count);
+               });
+        });
+  </script>
+
+</head>
+<body>
+
+    <h1 style="margin-left: 25%; margin-top:100px">This button has been pushed <span id="count">0</span> time(s)</h1>
+
+    <button  id="btn" style="margin-left: 30%; margin-top: 100px; height: 200px; width: 400px; background-color: chocolate; color: aliceblue"><h2> Push the epic button </h2>  </button>
+
+
+    <button id="reset" style="margin-left: 80%; margin-top: 100px; height: 100px; width: 200px; background-color:brown; color: aliceblue"><h5> Reset count </h5>  </button>
+</body>
+</html>
